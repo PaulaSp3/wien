@@ -28,3 +28,5 @@ let layerControl = L.control.layers({
         L.tileLayer.provider('BasemapAT.orthofoto'),
         L.tileLayer.provider('BasemapAT.overlay')])
 }).addTo(map)
+
+layerControl.expand();
