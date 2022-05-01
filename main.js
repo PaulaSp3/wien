@@ -45,6 +45,7 @@ L.control.scale({
     imperial : false,
 }).addTo(map);
 
+//Fullscreen
 L.control.fullscreen().addTo(map);
 
 //Minimap
