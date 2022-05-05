@@ -31,6 +31,7 @@ let layerControl = L.control.layers({
 
 layerControl.expand();
 
+/*
 //Sehenswürdigkeiten in Layercontrol
 let sightLayer = L.featureGroup();
 
@@ -39,6 +40,7 @@ layerControl.addOverlay(sightLayer, "Sehenswürdigkeiten");
 let mrk = L.marker([stephansdom.lat, stephansdom.lng]).addTo(sightLayer);
 
 sightLayer.addTo(map);
+*/
 
 //Massstab
 L.control.scale({
