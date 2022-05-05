@@ -57,7 +57,7 @@ let miniMap = new L.Control.MiniMap(
 ).addTo(map);
 
 // Asynchrone Funktion zum Laden der GeoJSON datei mit Sehenswürdigkeiten
-
+// und Einfügen in Karte
 async function loadSites(url) {
     let response = await fetch(url);
     let geojson = await response.json();
@@ -72,3 +72,17 @@ async function loadSites(url) {
 }
 loadSites("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json")
 
+//Haltestellen Vienna Sightseeing
+async function loadStops(url) {
+    let response = await fetch(url);
+    let geojson = await response.json();
+    //console.log(geojson);
+
+    //Sightseeing in Layercontrol
+    let overlay = L.featureGroup();
+
+    layerControl.addOverlay(overlay, "Sightseeing Stops");
+    overlay.addTo(map);
+    L.geoJSON(geojson).addTo(overlay); // https://leafletjs.com/reference.html#geojson
+}
+loadStops("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKHTSVSLOGD&srsName=EPSG:4326&outputFormat=json")
