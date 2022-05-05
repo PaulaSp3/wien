@@ -61,7 +61,7 @@ let miniMap = new L.Control.MiniMap(
 async function loadSites(url) {
     let response = await fetch(url);
     let geojson = await response.json();
-    console.log(geojson);
+    //console.log(geojson);
 
     //Sehenswürdigkeiten in Layercontrol
     let overlay = L.featureGroup();
