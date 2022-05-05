@@ -70,7 +70,8 @@ async function loadSites(url) {
     overlay.addTo(map);
     L.geoJSON(geojson, {
         pointToLayer : function(geoJsonPoint,latlng){
-            console.log(geoJsonPoint.properties.NAME)
+            //L.marker(latlng).addTo(map);
+            //console.log(geoJsonPoint.properties.NAME)
             let popup = `
             <img src="${geoJsonPoint.properties.THUMBNAIL}" alt=""><br>
             <strong> ${geoJsonPoint.properties.NAME} </strong>
@@ -78,7 +79,13 @@ async function loadSites(url) {
             Adresse: ${geoJsonPoint.properties.ADRESSE}<br>
             <a href="${geoJsonPoint.properties.WEITERE_INF}">Weblink</a>
             `;
-            return L.marker(latlng).bindPopup(popup);
+            return L.marker(latlng,{
+                icon: L.icon({
+                    iconUrl: "icons/photo.png", //aus: https://mapicons.mapsmarker.com/markers/media/photo/?custom_color=ffffff
+                    iconAnchor: [16,37], //Verschieben des Icons dass Spitze richtig ist
+                    popupAnchor: [0,-37] //Verschieben des Popups, dass es nicht das Icon verdeckt
+                })
+            }).bindPopup(popup);
         }
     }).addTo(overlay); // https://leafletjs.com/reference.html#geojson
 }
