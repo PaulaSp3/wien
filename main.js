@@ -56,10 +56,12 @@ let miniMap = new L.Control.MiniMap(
     {"toggleDisplay" : "True"}
 ).addTo(map);
 
-// Asynchrone Funktion
+// Asynchrone Funktion zum Laden der GeoJSON datei mit Sehenswürdigkeiten
+
 async function loadSites(url) {
     let response = await fetch(url);
     let geojson = await response.json();
     console.log(geojson);
+    L.geoJSON(geojson).addTo(map); // https://leafletjs.com/reference.html#geojson
 }
 loadSites("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json")
