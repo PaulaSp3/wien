@@ -85,7 +85,7 @@ async function loadStops(url) {
     overlay.addTo(map);
     L.geoJSON(geojson).addTo(overlay); // https://leafletjs.com/reference.html#geojson
 }
-loadStops("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKHTSVSLOGD&srsName=EPSG:4326&outputFormat=json")
+//loadStops("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKHTSVSLOGD&srsName=EPSG:4326&outputFormat=json")
 
 //Linien Vienna Sightseeing
 async function loadLines(url) {
@@ -100,7 +100,7 @@ async function loadLines(url) {
     overlay.addTo(map);
     L.geoJSON(geojson).addTo(overlay); // https://leafletjs.com/reference.html#geojson
 }
-loadLines("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKLINIEVSLOGD&srsName=EPSG:4326&outputFormat=json")
+//loadLines("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:TOURISTIKLINIEVSLOGD&srsName=EPSG:4326&outputFormat=json")
 
 //Fußgängerzonen
 async function loadZones(url) {
@@ -115,7 +115,7 @@ async function loadZones(url) {
     overlay.addTo(map);
     L.geoJSON(geojson).addTo(overlay); // https://leafletjs.com/reference.html#geojson
 }
-loadZones("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:FUSSGEHERZONEOGD&srsName=EPSG:4326&outputFormat=json")
+//loadZones("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:FUSSGEHERZONEOGD&srsName=EPSG:4326&outputFormat=json")
 
 //Hotels und Unterkünfte
 async function loadHotels(url) {
@@ -130,4 +130,4 @@ async function loadHotels(url) {
     overlay.addTo(map);
     L.geoJSON(geojson).addTo(overlay); // https://leafletjs.com/reference.html#geojson
 }
-loadHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json")
+//loadHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json")
