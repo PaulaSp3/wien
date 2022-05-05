@@ -116,3 +116,18 @@ async function loadZones(url) {
     L.geoJSON(geojson).addTo(overlay); // https://leafletjs.com/reference.html#geojson
 }
 loadZones("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:FUSSGEHERZONEOGD&srsName=EPSG:4326&outputFormat=json")
+
+//Hotels und Unterkünfte
+async function loadHotels(url) {
+    let response = await fetch(url);
+    let geojson = await response.json();
+    //console.log(geojson);
+
+    //Fußgängerzonen in Layercontrol
+    let overlay = L.featureGroup();
+
+    layerControl.addOverlay(overlay, "Hotels und Unterkünfte");
+    overlay.addTo(map);
+    L.geoJSON(geojson).addTo(overlay); // https://leafletjs.com/reference.html#geojson
+}
+loadHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json")
