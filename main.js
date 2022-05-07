@@ -1,6 +1,6 @@
 /* OGD Wien Beispiel */
 
-let stephansdom ={
+let stephansdom = {
     lat: 48.208493,
     lng: 16.373118,
     title: "Stephansdom",
@@ -9,24 +9,25 @@ let stephansdom ={
 let startLayer = L.tileLayer.provider('BasemapAT.grau');
 
 let map = L.map("map", {
-    center : [stephansdom.lat, stephansdom.lng],
-    zoom : 15,
-    layers : [
+    center: [stephansdom.lat, stephansdom.lng],
+    zoom: 15,
+    layers: [
         startLayer
     ],
 })
 
 let layerControl = L.control.layers({
-    "BasemapAT Grau" : startLayer,
-    "BasemapAT Standard" : L.tileLayer.provider('BasemapAT.basemap'),
-    "BasemapAT High-DPI" : L.tileLayer.provider('BasemapAT.highdpi'),
-    "BasemapAT Gelände" : L.tileLayer.provider('BasemapAT.terrain'),
-    "BasemapAT Oberfläche" : L.tileLayer.provider('BasemapAT.surface'),
-    "BasemapAT Orthofoto" : L.tileLayer.provider('BasemapAT.orthofoto'),
-    "BasemapAT Beschriftung" : L.tileLayer.provider('BasemapAT.overlay'),
-    "Basemap Orthofoto mit Beschriftung" : L.layerGroup([
+    "BasemapAT Grau": startLayer,
+    "BasemapAT Standard": L.tileLayer.provider('BasemapAT.basemap'),
+    "BasemapAT High-DPI": L.tileLayer.provider('BasemapAT.highdpi'),
+    "BasemapAT Gelände": L.tileLayer.provider('BasemapAT.terrain'),
+    "BasemapAT Oberfläche": L.tileLayer.provider('BasemapAT.surface'),
+    "BasemapAT Orthofoto": L.tileLayer.provider('BasemapAT.orthofoto'),
+    "BasemapAT Beschriftung": L.tileLayer.provider('BasemapAT.overlay'),
+    "Basemap Orthofoto mit Beschriftung": L.layerGroup([
         L.tileLayer.provider('BasemapAT.orthofoto'),
-        L.tileLayer.provider('BasemapAT.overlay')])
+        L.tileLayer.provider('BasemapAT.overlay')
+    ])
 }).addTo(map)
 
 layerControl.expand();
@@ -44,7 +45,7 @@ sightLayer.addTo(map);
 
 //Massstab
 L.control.scale({
-    imperial : false,
+    imperial: false,
 }).addTo(map);
 
 //Fullscreen
@@ -52,8 +53,9 @@ L.control.fullscreen().addTo(map);
 
 //Minimap
 let miniMap = new L.Control.MiniMap(
-    L.tileLayer.provider("BasemapAT"),
-    {"toggleDisplay" : "True"}
+    L.tileLayer.provider("BasemapAT"), {
+        "toggleDisplay": "True"
+    }
 ).addTo(map);
 
 // Asynchrone Funktion zum Laden der GeoJSON datei mit Sehenswürdigkeiten
@@ -69,7 +71,7 @@ async function loadSites(url) {
     layerControl.addOverlay(overlay, "Sehenswürdigkeiten");
     overlay.addTo(map);
     L.geoJSON(geojson, {
-        pointToLayer : function(geoJsonPoint,latlng){
+        pointToLayer: function (geoJsonPoint, latlng) {
             //L.marker(latlng).addTo(map);
             //console.log(geoJsonPoint.properties.NAME)
             let popup = `
@@ -79,11 +81,11 @@ async function loadSites(url) {
             Adresse: ${geoJsonPoint.properties.ADRESSE}<br>
             <a href="${geoJsonPoint.properties.WEITERE_INF}">Weblink</a>
             `;
-            return L.marker(latlng,{
+            return L.marker(latlng, {
                 icon: L.icon({
                     iconUrl: "icons/photo.png", //aus: https://mapicons.mapsmarker.com/markers/media/photo/?custom_color=ffffff
-                    iconAnchor: [16,37], //Verschieben des Icons dass Spitze richtig ist
-                    popupAnchor: [0,-37] //Verschieben des Popups, dass es nicht das Icon verdeckt
+                    iconAnchor: [16, 37], //Verschieben des Icons dass Spitze richtig ist
+                    popupAnchor: [0, -37] //Verschieben des Popups, dass es nicht das Icon verdeckt
                 })
             }).bindPopup(popup);
         }
@@ -103,19 +105,19 @@ async function loadStops(url) {
     layerControl.addOverlay(overlay, "Sightseeing Stops");
     overlay.addTo(map);
     L.geoJSON(geojson, {
-        pointToLayer : function(geoJsonPoint,latlng){
+        pointToLayer: function (geoJsonPoint, latlng) {
             //L.marker(latlng).addTo(map);
             //console.log(geoJsonPoint.properties)
             let popup = `
             <strong>${geoJsonPoint.properties.LINE_NAME}</strong><br>
             Station ${geoJsonPoint.properties.STAT_NAME}
             `;
-            
-            return L.marker(latlng,{
+
+            return L.marker(latlng, {
                 icon: L.icon({
                     iconUrl: `icons/bus_${geoJsonPoint.properties.LINE_ID}.png`,
-                    iconAnchor: [16,37], //Verschieben des Icons dass Spitze richtig ist
-                    popupAnchor: [0,-37] //Verschieben des Popups, dass es nicht das Icon verdeckt
+                    iconAnchor: [16, 37], //Verschieben des Icons dass Spitze richtig ist
+                    popupAnchor: [0, -37] //Verschieben des Popups, dass es nicht das Icon verdeckt
                 })
             }).bindPopup(popup);
         }
@@ -166,7 +168,7 @@ async function loadHotels(url) {
 
     overlay.addTo(map);
     L.geoJSON(geojson, {
-        pointToLayer : function(geoJsonPoint,latlng){
+        pointToLayer: function (geoJsonPoint, latlng) {
             //L.marker(latlng).addTo(map);
             //console.log(geoJsonPoint.properties)
             let popup = `
@@ -179,26 +181,24 @@ async function loadHotels(url) {
             <a href="${geoJsonPoint.properties.WEBLINK1}">Website</a><br>
             `;
             let iconHotel
-            if (`${geoJsonPoint.properties.BETRIEBSART}` == "H"){
+            if (`${geoJsonPoint.properties.BETRIEBSART}` == "H") {
                 iconHotel = "icons/hotel_H.png"
-            }
-            else if (`${geoJsonPoint.properties.BETRIEBSART}` == "P"){
+            } else if (`${geoJsonPoint.properties.BETRIEBSART}` == "P") {
                 iconHotel = "icons/hotel_P.png"
-            }
-            else{
+            } else {
                 iconHotel = "icons/hotel_A.png"
             }
 
-            return L.marker(latlng,{
+            return L.marker(latlng, {
                 icon: L.icon({
                     iconUrl: iconHotel,
-                    iconAnchor: [16,37], //Verschieben des Icons dass Spitze richtig ist
-                    popupAnchor: [0,-37] //Verschieben des Popups, dass es nicht das Icon verdeckt
+                    iconAnchor: [16, 37], //Verschieben des Icons dass Spitze richtig ist
+                    popupAnchor: [0, -37] //Verschieben des Popups, dass es nicht das Icon verdeckt
                 })
             }).bindPopup(popup);
         }
     }).addTo(overlay);
 
-    
+
 }
 loadHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json")
