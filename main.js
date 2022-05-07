@@ -163,7 +163,42 @@ async function loadHotels(url) {
     let overlay = L.featureGroup();
 
     layerControl.addOverlay(overlay, "Hotels und Unterkünfte");
+
     overlay.addTo(map);
-    L.geoJSON(geojson).addTo(overlay); // https://leafletjs.com/reference.html#geojson
+    L.geoJSON(geojson, {
+        pointToLayer : function(geoJsonPoint,latlng){
+            //L.marker(latlng).addTo(map);
+            //console.log(geoJsonPoint.properties)
+            let popup = `
+            ${geoJsonPoint.properties.KATEGORIE_TXT} ${geoJsonPoint.properties.BETRIEBSART_TXT} <br>
+            <strong>${geoJsonPoint.properties.BETRIEB}</strong><br>
+            <hr>
+            Adresse: ${geoJsonPoint.properties.ADRESSE}<br>
+            Telefonnummer: ${geoJsonPoint.properties.KONTAKT_TEL}<br>
+            <a href="${geoJsonPoint.properties.KONTAKT_EMAIL}">Email</a><br>
+            <a href="${geoJsonPoint.properties.WEBLINK1}">Website</a><br>
+            `;
+            let iconHotel
+            if (`${geoJsonPoint.properties.BETRIEBSART}` == "H"){
+                iconHotel = "icons/hotel_H.png"
+            }
+            else if (`${geoJsonPoint.properties.BETRIEBSART}` == "P"){
+                iconHotel = "icons/hotel_P.png"
+            }
+            else{
+                iconHotel = "icons/hotel_A.png"
+            }
+
+            return L.marker(latlng,{
+                icon: L.icon({
+                    iconUrl: iconHotel,
+                    iconAnchor: [16,37], //Verschieben des Icons dass Spitze richtig ist
+                    popupAnchor: [0,-37] //Verschieben des Popups, dass es nicht das Icon verdeckt
+                })
+            }).bindPopup(popup);
+        }
+    }).addTo(overlay);
+
+    
 }
-//loadHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json")
+loadHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json")
