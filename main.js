@@ -205,7 +205,7 @@ async function loadHotels(url) {
     //console.log(geojson);
 
     //Fußgängerzonen in Layercontrol
-    let overlay = L.featureGroup();
+    let overlay = L.markerClusterGroup();
 
     layerControl.addOverlay(overlay, "Hotels und Unterkünfte");
 
