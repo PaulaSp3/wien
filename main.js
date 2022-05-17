@@ -203,10 +203,15 @@ async function loadHotels(url) {
     let response = await fetch(url);
     let geojson = await response.json();
     //console.log(geojson);
+    console.log(geojson.features);
 
-    //Fußgängerzonen in Layercontrol
-    let overlay = L.markerClusterGroup(
-        {disableClusteringAtZoom: 17
+    // Hotels nach Name sortieren
+    geojson.features.sort(function(a, b) {
+        return a.properties.BETRIEB.toLowerCase() > b.properties.BETRIEB.toLowerCase()
+    })
+    
+let overlay = L.markerClusterGroup({
+    disableClusteringAtZoom: 17
         });
 
     layerControl.addOverlay(overlay, "Hotels und Unterkünfte");
