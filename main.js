@@ -139,7 +139,7 @@ async function loadLines(url) {
     L.geoJSON(geojson).addTo(overlay); // https://leafletjs.com/reference.html#geojson
 
     L.geoJSON(geojson, {
-        style: function(feature) {
+        style: function (feature) {
             //console.log(feature)
 
             let colors = {
@@ -153,7 +153,7 @@ async function loadLines(url) {
             return {
                 color: `${colors[feature.properties.LINE_NAME]}`,
                 weight: 4,
-                dashArray: [10,6]
+                dashArray: [10, 6]
             }
         }
     }).bindPopup(function (layer) {
@@ -179,8 +179,8 @@ async function loadZones(url) {
     layerControl.addOverlay(overlay, "Fußgängerzonen");
     overlay.addTo(map);
     L.geoJSON(geojson, {
-        style: function(feature){
-            return{
+        style: function (feature) {
+            return {
                 color: "#F012BE",
                 weight: 1,
                 opacity: 0.1,
@@ -194,7 +194,7 @@ async function loadZones(url) {
             <p>${layer.feature.properties.AUSN_TEXT || ""}</p>
         `;
     }).addTo(overlay);
-     // https://leafletjs.com/reference.html#geojson
+    // https://leafletjs.com/reference.html#geojson
 }
 loadZones("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:FUSSGEHERZONEOGD&srsName=EPSG:4326&outputFormat=json")
 
@@ -206,13 +206,13 @@ async function loadHotels(url) {
     console.log(geojson.features);
 
     // Hotels nach Name sortieren
-    geojson.features.sort(function(a, b) {
+    geojson.features.sort(function (a, b) {
         return a.properties.BETRIEB.toLowerCase() > b.properties.BETRIEB.toLowerCase()
     })
-    
-let overlay = L.markerClusterGroup({
-    disableClusteringAtZoom: 17
-        });
+
+    let overlay = L.markerClusterGroup({
+        disableClusteringAtZoom: 17
+    });
 
     layerControl.addOverlay(overlay, "Hotels und Unterkünfte");
 
@@ -256,10 +256,10 @@ let overlay = L.markerClusterGroup({
     }).addTo(overlay);
 
     let form = document.querySelector("#searchForm");
-    form.suchen.onclick = function() {
-        
+    form.suchen.onclick = function () {
+
         //console.log(form.hotel.value);
-        hotelsLayer.eachLayer(function(marker) {
+        hotelsLayer.eachLayer(function (marker) {
             /*console.log(marker)
             console.log(marker.getLatLng())
             console.log(marker.getPopup())
@@ -269,7 +269,7 @@ let overlay = L.markerClusterGroup({
                 marker.openPopup();
             }
         })
-    }    
+    }
 
 }
 loadHotels("https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:UNTERKUNFTOGD&srsName=EPSG:4326&outputFormat=json")
